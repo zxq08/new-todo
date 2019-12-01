@@ -10,4 +10,5 @@
   height 100%
   background-color #315481
   background-image linear-gradient(180deg,#315481,#918e82)
+  overflow hidden
 </style>

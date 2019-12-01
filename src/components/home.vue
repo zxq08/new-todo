@@ -2,7 +2,7 @@
   <div class="wrap">
     <ul class="list-wrap">
       <li class="item-name-wrap" v-for="item in arrayList" :key="item.id">
-        <div :class="item.active ? 'item-name active' :'item-name'" @click="bindClickActive">
+        <div :class="{'active': selectedId == item.id}" @click="bindClickActive(item.id)">
           <span class="iconfont">&#xe606;</span>
           <span class="item-text">{{item.name}}</span>
           <span class="item-num">1</span>
@@ -16,7 +16,7 @@
       </li>
     </ul>
     <div class="todo-wrap">
-      <todo></todo>
+      <todo :selectedTodo="selectedTodo"></todo>
     </div>
   </div>
 </template>
@@ -28,7 +28,22 @@ export default {
   name: 'Home',
   data: function () {
     return {
-      arrayList: []
+      arrayList: [],
+      selectedId: '',
+      selectedTodo: [
+        {
+          "id": "1",
+          "name": "Jack",
+          "active": true,
+          "todo": [
+            {
+              "id": "1list1",
+              "text": "早点睡吧",
+              "status": true
+            }
+          ]
+        }
+      ]
     }
   },
   components: {
@@ -40,6 +55,9 @@ export default {
       axios.get('./mock/list.json')
         .then(function (res) {
           othis.arrayList = res.data
+          othis.selectedId = res.data[0].id
+          othis.setSelectedTodoArray()
+          console.log(othis.selectedTodo)
       })
     },
     addItem: function () {
@@ -47,15 +65,24 @@ export default {
       var list = othis.arrayList
       var len = othis.arrayList.length
       var newItem = new Object()
-      newItem.id = '0' + (len + 1)
+      newItem.id = (len + 1)
       newItem.name = "newName"
       newItem.active = false
       newItem.todo = []
+      this.selectedId = newItem.id
       othis.arrayList.push(newItem)
+      othis.setSelectedTodoArray()
     },
-    bindClickActive: function () {
-      var othis = this
-      console.log(othis.key)
+    bindClickActive: function (id) {
+      this.selectedId = id
+      this.setSelectedTodoArray()
+      console.log(this.selectedTodo)
+    },
+    setSelectedTodoArray: function () {
+      this.selectedTodo = []
+      this.selectedTodo.push(this.arrayList.find((t, index) => {
+        return this.selectedId && t.id == this.selectedId
+      }))
     }
   },
   created () {
@@ -72,7 +99,7 @@ export default {
     width 24%
     .item-name-wrap
       border-bottom .5px solid rgba(238, 238, 238, .4)
-      .item-name
+      div
         box-sizing border-box
         width 100%
         height 65px
@@ -96,10 +123,10 @@ export default {
           background #2cc5d2
           text-align center
           line-height 20px
+      .active
+        opacity 1
     .item-add
       color #5db9ff
-  .item-name.active
-    opacity 1
   .todo-wrap
   	flex 1 0 auto
 </style>

@@ -1,16 +1,34 @@
 <template>
   <div class="todo">
     <div class="header-wrap">
+      {{selectedTodo[0].name}}
     </div>
     <ul class="todo-content">
-      <li>1</li>
-      <li>2</li>
+      <li v-for="item in todoList" :key="item.id" :class="{'finished': item.status}">
+        {{item.text}}
+      </li>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  name: 'Todo'
+  name: 'Todo',
+  data () {
+    return {
+      todoList: []
+    }
+  },
+  props: {
+    selectedTodo: Array
+  },
+  mounted () {
+    console.log(this.selectedTodo)
+  },
+  watch: {
+    selectedTodo () {
+      this.todoList = this.selectedTodo[0].todo
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped>
@@ -30,4 +48,7 @@ export default {
       height 40px
       line-height 40px
       padding-left 10px
+    .finished
+      color #aaa
+      text-decoration line-through
 </style>

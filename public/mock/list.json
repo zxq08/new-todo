@@ -1,16 +1,32 @@
 [
 	{
-    "id": "01",
+    "id": "1",
     "name": "Jack",
     "active": true,
-    "todo": []
+    "todo": [
+        {
+            "id": "1list1",
+            "text": "早点睡吧",
+            "status": true
+        },
+        {
+            "id": "1list2",
+            "text": "长点心吧",
+            "status": false
+        },
+        {
+            "id": "1list3",
+            "text": "不听话呢",
+            "status": false
+        }
+    ]
   }, {
-    "id": "02",
+    "id": "2",
     "name": "Mary",
     "active": false,
     "todo": []
   }, {
-    "id": "03",
+    "id": "3",
     "name": "Ming",
     "active": false,
     "todo": []
