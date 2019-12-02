@@ -3,9 +3,10 @@
     <ul class="list-wrap">
       <li class="item-name-wrap" v-for="item in arrayList" :key="item.id">
         <div :class="{'active': selectedId == item.id}" @click="bindClickActive(item.id)">
-          <span class="iconfont">&#xe606;</span>
+          <span v-if="item.locked" class="iconfont">&#xe606;</span>
+          <span v-else class="else-icon"></span>
           <span class="item-text">{{item.name}}</span>
-          <span class="item-num">1</span>
+          <span class="item-num">{{unfinishedCount(item)}}</span>
         </div>
       </li>
       <li class="item-name-wrap" @click="addItem">
@@ -57,7 +58,6 @@ export default {
           othis.arrayList = res.data
           othis.selectedId = res.data[0].id
           othis.setSelectedTodoArray()
-          console.log(othis.selectedTodo)
       })
     },
     addItem: function () {
@@ -76,13 +76,19 @@ export default {
     bindClickActive: function (id) {
       this.selectedId = id
       this.setSelectedTodoArray()
-      console.log(this.selectedTodo)
     },
     setSelectedTodoArray: function () {
       this.selectedTodo = []
       this.selectedTodo.push(this.arrayList.find((t, index) => {
         return this.selectedId && t.id == this.selectedId
       }))
+    },
+    unfinishedCount (arr) {
+      var listArr = arr.todo
+      var falseList = []
+      return listArr.filter((item, index) => {
+        return !item.status
+      }).length
     }
   },
   created () {
@@ -112,6 +118,9 @@ export default {
         opacity 0.5
         &:hover
           opacity 1
+        .else-icon
+          width 16px
+          padding-bottom 16px
         .item-text
           text-align left
           padding-left 10px

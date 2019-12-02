@@ -3,6 +3,7 @@
     "id": "1",
     "name": "Jack",
     "active": true,
+    "locked": false,
     "todo": [
         {
             "id": "1list1",
@@ -24,11 +25,50 @@
     "id": "2",
     "name": "Mary",
     "active": false,
-    "todo": []
+    "locked": true,
+    "todo": [
+      {
+            "id": "2list1",
+            "text": "少吃点",
+            "status": false
+        },
+        {
+            "id": "2list2",
+            "text": "多动脑",
+            "status": true
+        },
+        {
+            "id": "2list3",
+            "text": "多出门",
+            "status": true
+        }
+    ]
   }, {
     "id": "3",
     "name": "Ming",
     "active": false,
-    "todo": []
+    "locked": true,
+    "todo": [
+      {
+            "id": "3list1",
+            "text": "少花钱",
+            "status": false
+        },
+        {
+            "id": "3list2",
+            "text": "多看书",
+            "status": false
+        },
+        {
+            "id": "3list3",
+            "text": "喝热水",
+            "status": true
+        },
+        {
+            "id": "3list4",
+            "text": "休息眼睛",
+            "status": true
+        }
+    ]
   }
 ]

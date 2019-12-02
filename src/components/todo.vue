@@ -22,7 +22,6 @@ export default {
     selectedTodo: Array
   },
   mounted () {
-    console.log(this.selectedTodo)
   },
   watch: {
     selectedTodo () {
@@ -38,8 +37,10 @@ export default {
   margin 10px 0
   .header-wrap
     width 100%
-    height 70px
+    box-sizing border-box
+    height 100px
     background linear-gradient(180deg,#d0edf5,#e1e5f0)
+    padding 20px 20px
   .todo-content
     width 100%
     height 90%
